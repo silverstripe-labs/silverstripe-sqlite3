@@ -13,4 +13,14 @@ jobs:
     name: CI
     # Only run cron on the silverstripe account
     if: (github.event_name == 'schedule' && github.repository_owner == 'silverstripe') || (github.event_name != 'schedule')
-    uses: silverstripe/gha-ci/.github/workflows/ci.yml@v1
+    uses: maxime-rainville/gha-ci/.github/workflows/ci.yml@1
+    with:
+      phpunit: false
+      preserve_vendor_test: true
+      extra_jobs: |
+        - php: 8.1
+          db: sqlite3
+          phpunit: true
+        - php: 8.1
+          db: mssql
+          phpunit: true
